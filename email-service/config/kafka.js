@@ -9,7 +9,9 @@ const kafka = new Kafka({
 });
 
 // Initialize Resend client
-const resend = new Resend(process.env.RESEND_API_KEY || 're_123456789'); // Valid key required in env
+const resend = process.env.RESEND_API_KEY
+    ? new Resend(process.env.RESEND_API_KEY)
+    : null;
 
 const consumer = kafka.consumer({ groupId: 'email-service' });
 const producer = kafka.producer();
